@@ -224,8 +224,8 @@ func main() {
 			"p20", 
 		}
 	schedule := [][][]int{} 
-	groupSize := 7
-	rounds := 20
+	groupSize := 2
+	rounds := 79
 
 	seen := diagonalBoolMatrix(len(names))
 
