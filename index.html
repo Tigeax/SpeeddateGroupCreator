@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Create group speed dating schedules with customizable settings"
+    />
+    <!-- Cloudflare Web Analytics -->
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "38bf2ee77015482d81bb988dce57835c"}'
+    ></script>
+    <!-- End Cloudflare Web Analytics -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.pumpkin.min.css"
+    />
+    <link rel="stylesheet" href="main.css" />
+    <script type="text/javascript" src="main.js" defer></script>
+    <script type="text/javascript" src="scheduler.js" defer></script>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>"
+    />
+    <title>Speeddate Groups Generator</title>
+  </head>
+  <body>
+    <header class="container">
+      <hgroup>
+        <h1>Group Schedule Generator</h1>
+        <p>Generate round-based group schedules so everyone meets everyone.</p>
+      </hgroup>
+    </header>
+    <main class="container">
+      <div class="layout">
+        <!-- /.layout -->
+        <article>
+          <h2>Configuration</h2>
+
+          <fieldset>
+            <label>
+              Participants <small>(one name per line)</small>
+              <textarea id="names-input" rows="8">
+Alice
+Bob
+Charlie
+Diana
+Eve
+Frank</textarea
+              >
+            </label>
+
+            <label>
+              <input id="distribute" type="checkbox" role="switch" />
+              <span>
+                Distribute remainders
+                <small
+                  data-tooltip="Spread leftover people into size+1 groups instead of one small group"
+                  style="border: none"
+                  >🛈</small
+                ></span
+              >
+            </label>
+
+            <label>
+              <input id="full-coverage" type="checkbox" role="switch" />
+              <span>
+                Full coverage
+                <small
+                  data-tooltip="Run until every person has met every other person"
+                  style="border: none"
+                  >🛈</small
+                ></span
+              >
+            </label>
+
+            <label>
+              Group size
+              <input type="number" id="group-size" value="3" min="2" />
+            </label>
+
+            <label id="rounds-label">
+              Rounds
+              <input type="number" id="num-rounds" value="4" min="1" />
+            </label>
+          </fieldset>
+
+          <input id="generate-btn" type="submit" value="Generate Schedule" />
+        </article>
+
+        <!-- RIGHT: results or empty state -->
+        <div id="right-panel">
+          <article id="empty-state" class="empty-state">
+            <p style="font-size: 2.5rem; margin: 0">📋</p>
+            <p>
+              Your schedule will appear here once you hit
+              <strong>Generate Schedule</strong>.
+            </p>
+          </article>
+
+          <article id="statistics" hidden>
+            <details open>
+              <summary><strong>Statistics</strong></summary>
+              <div class="grid">
+                <hgroup style="margin-bottom: 0">
+                  <h3 id="stats-participants">6</h3>
+                  <p>Participants</p>
+                </hgroup>
+                <hgroup style="margin-bottom: 0">
+                  <h3 id="stats-rounds">4</h3>
+                  <p>Rounds</p>
+                </hgroup>
+                <hgroup style="margin-bottom: 0">
+                  <h3 id="stats-coverage">100%</h3>
+                  <p>Average coverage</p>
+                </hgroup>
+              </div>
+            </details>
+          </article>
+          <article id="schedule" hidden>
+            <details open>
+              <summary><strong>Schedule</strong></summary>
+              <div id="schedule-output"></div>
+            </details>
+          </article>
+          <article id="coverage" hidden>
+            <details open>
+              <summary><strong>Coverage per participant</strong></summary>
+              <table id="coverage-table">
+                <thead>
+                  <tr>
+                    <th>Participant</th>
+                    <th>Met</th>
+                    <th>Coverage</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </details>
+          </article>
+          <article id="export" hidden>
+            <details open>
+              <summary><strong>Export</strong></summary>
+              <fieldset>
+                <button id="copy-btn" class="secondary">Copy text</button>
+                <button id="export-txt-btn" class="secondary">
+                  Export .txt
+                </button>
+                <button id="export-json-btn" class="secondary">
+                  Export .json
+                </button>
+                <button id="export-csv-btn" class="secondary">
+                  Export .csv
+                </button>
+              </fieldset>
+            </details>
+          </article>
+        </div>
+        <!-- /.layout -->
+      </div>
+    </main>
+    <footer class="container">
+      <small
+        >© <span id="year"></span> Speedate Groups -
+        <a href="mailto:support@speeddategroups.com"
+          >support@speeddategroups.com</a
+        ></small
+      >
+    </footer>
+  </body>
+</html>
